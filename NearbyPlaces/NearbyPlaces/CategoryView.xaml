@@ -1,0 +1,80 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="NearbyPlaces.CategoryView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="False"
+    shell:SystemTray.BackgroundColor="Red"
+    shell:SystemTray.ForegroundColor="White">
+
+    
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ProgressBar Name="pbar" Grid.Row="1" Foreground="Blue" HorizontalAlignment="Stretch" Height="10" VerticalAlignment="Top" IsIndeterminate="True"/>
+        <TextBlock Margin="10,0,0,0" Grid.Row="1" Name="loadingtext" Text="Searching ..." Foreground="Black" VerticalAlignment="Bottom"></TextBlock>
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel Grid.Row="0" Background="Red">
+            <TextBlock Margin="12,10,12,10" Text="Category" FontFamily="/Assets/Fonts/timeburner_regular.ttf#TimeBurner" Foreground="White" Name="CategoryTitle" FontSize="35" FontWeight="ExtraBold" HorizontalAlignment="Center"/>            
+        </StackPanel>
+        
+        
+        <TextBlock
+            Grid.Row="1"
+            Name="ErrorBlock"
+            Text="No Results found :( "
+            Visibility="Collapsed"
+            FontFamily="/Assets/Fonts/timeburner_regular.ttf#TimeBurner"
+            Foreground="Black"
+            FontSize="30"
+            FontWeight="Bold"
+            Margin="20,30,20,10">            
+        </TextBlock>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="2" Margin="15,30,15,20">
+
+            <ListBox Name="PlacesList" ItemsSource="{Binding}" SelectionChanged="PlacesList_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        
+                        <Grid Margin="10,20,10,20" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"></RowDefinition>
+                                <RowDefinition Height="3*"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock Foreground="Black" FontWeight="ExtraBold" TextWrapping="Wrap" Text="{Binding Name}" HorizontalAlignment="Left" FontSize="30"  FontFamily="/Assets/Fonts/timeburner_regular.ttf#TimeBurner"/>
+                            <TextBlock Foreground="Black"  TextWrapping="Wrap" Grid.Row="1" Text="{Binding Vicinity}" HorizontalAlignment="Left" />
+                            <TextBlock Foreground="Black" Grid.Row="2" Text="{Binding Distance}" HorizontalAlignment="Left" />
+                        </Grid>
+
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </Grid>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar Mode="Minimized"  Opacity="0.7" IsMenuEnabled="True" IsVisible="True">
+
+            <shell:ApplicationBarIconButton IconUri="/Assets/Images/location.png" Text="Show Map" Click="MapAll_Click" />
+        
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+</phone:PhoneApplicationPage>
